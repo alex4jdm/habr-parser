@@ -1,0 +1,23 @@
+{
+  "name": "habr-parser",
+  "version": "1.0.0",
+  "description": "Parser for habr.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex4jdm/habr-parser.git"
+  },
+  "keywords": [
+    "habr",
+    "parser"
+  ],
+  "author": "alex4jdm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex4jdm/habr-parser/issues"
+  },
+  "homepage": "https://github.com/alex4jdm/habr-parser#readme"
+}
