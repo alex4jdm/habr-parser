@@ -22,8 +22,34 @@ class Parser {
     async startScrapper() {
         try {
             const tasks = this.db.collection('tasks');
-            tasks.findOne((err, doc) => {
-                console.log(doc);
+            tasks.findOne(async (err, doc) => {
+                await this.page.goto(doc.url, { waitUntil: 'networkidle2' });
+                const content = await this.page.content();
+                let $ = cheerio.load(content);
+                let article = {
+                    url: doc.url,
+                    header: '',
+                    hubs: [],
+                    labels: []
+                };
+
+                // Getting header
+                $('#app > div.tm-layout__wrapper > div.tm-layout > main > div > div > div > div.tm-page__main.tm-page__main_has-sidebar > div > div.tm-page-article__body > article > div.tm-page-article__head-wrapper > div > h1')
+                .each((i, element) => {
+                    article.header = $(element);
+                });
+
+                // Getting hubs
+                $('#app > div.tm-layout__wrapper > div.tm-layout > main > div > div > div > div.tm-page__main.tm-page__main_has-sidebar > div > div.tm-page-article__body > article > div.tm-page-article__head-wrapper > div > div.tm-article-snippet__hubs > span')
+                .each((i, element) => {
+                    article.hubs.push($(element).text());
+                });
+
+                // Getting labels
+                $('#app > div.tm-layout__wrapper > div.tm-layout > main > div > div > div > div.tm-page__main.tm-page__main_has-sidebar > div > div.tm-page-article__body > article > div.tm-page-article__head-wrapper > div > div.tm-article-snippet__labels > span')
+                .each((i, element) => {
+                    article.labels.push($(element).text());
+                });
             });
         } catch (error) {
             console.log('You should use init method.' + error);

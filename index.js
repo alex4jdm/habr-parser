@@ -7,5 +7,5 @@ mongoClient.connect(async (err, client) => {
     const scraper = new Parser(cfg.domain);
     await scraper.init(client, cfg.dbname);
     await scraper.startScrapper();
-    setTimeout(async () => { await scraper.stop(); }, 10000);
+    //setTimeout(async () => { await scraper.stop(); }, 10000);
 });
