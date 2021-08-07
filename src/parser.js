@@ -15,8 +15,19 @@ class Parser {
         this.page.goto(this.url, { waitUntil: 'networkidle2' });
     }
 
+    async stop() {
+        await this.browser.close();
+    }
+
     async startScrapper() {
-        
+        try {
+            const tasks = this.db.collection('tasks');
+            tasks.findOne((err, doc) => {
+                console.log(doc);
+            });
+        } catch (error) {
+            console.log('You should use init method.' + error);
+        }
     }
 }
 
