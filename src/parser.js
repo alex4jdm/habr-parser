@@ -30,13 +30,15 @@ class Parser {
                     url: doc.url,
                     header: '',
                     hubs: [],
-                    labels: []
+                    labels: [],
+                    tags: [],
+                    body: ''
                 };
 
                 // Getting header
                 $('#app > div.tm-layout__wrapper > div.tm-layout > main > div > div > div > div.tm-page__main.tm-page__main_has-sidebar > div > div.tm-page-article__body > article > div.tm-page-article__head-wrapper > div > h1')
                 .each((i, element) => {
-                    article.header = $(element);
+                    article.header = $(element).text();
                 });
 
                 // Getting hubs
@@ -50,6 +52,19 @@ class Parser {
                 .each((i, element) => {
                     article.labels.push($(element).text());
                 });
+
+                // Getting tags
+                $('#app > div.tm-layout__wrapper > div.tm-layout > main > div > div > div > div.tm-page__main.tm-page__main_has-sidebar > div > div.tm-page-article__body > article > div.tm-article-body__tags > div:nth-child(1) > span > a')
+                .each((i, element) => {
+                    article.tags.push($(element).text());
+                });
+
+                // Getting body
+                $('#post-content-body > div')
+                .each((i, element) => {
+                    article.body = $(element).html();
+                });
+                console.log(article.body);
             });
         } catch (error) {
             console.log('You should use init method.' + error);
