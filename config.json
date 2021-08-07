@@ -1,4 +1,5 @@
 {
     "domain": "https://habr.com/",
-    "dbname": "Cluster0"
+    "dbname": "Cluster0",
+    "uri": "mongodb+srv://root:2204@cluster0.plvpy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 }

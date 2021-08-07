@@ -1,19 +1,12 @@
 const Parser = require('./src/parser');
-const mongoClient = require("mongodb").MongoClient;
+const MongoClient = require("mongodb").MongoClient;
+const cfg = require('./config.json');
 
-const cfg = require('config.json');
 const scraper = new Parser(cfg.domain);
 
-mongoClient.connect(function(err, client){
+const mongoClient = new MongoClient(cfg.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoClient.connect((err, client) => {
     scraper.init(client, cfg.dbname);
-    const collection = db.collection("users");
-    let user = {name: "Tom", age: 23};
-    collection.insertOne(user, function(err, result){
-          
-        if(err){ 
-            return console.log(err);
-        }
-        console.log(result.ops);
-        client.close();
-    });
+    const collection = client.db(cfg.dbname).collection("articles");
+
 });
